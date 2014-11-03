@@ -75,17 +75,6 @@ void draw()
     world.render();
     gui.render();
   }
-  if (networkManager.getClient().available() > 0)
-  {
-    String packetData = networkManager.getClient().readString();
-    println("Client is receiving data...");
-
-    if (packetData != null)
-    {
-      println(packetData);
-      networkManager.receivePacket(networkManager.decodePacket(packetData));
-    }
-  }
 }
 
 //this will determine if a connection can be made to the server
