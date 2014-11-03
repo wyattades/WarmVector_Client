@@ -23,21 +23,23 @@ World world;
 GUI gui;
 StartMenu startmenu;
 
-int level = 1; //the current level
-int stage = 1;
+int level; //the current level
+int stage;
+boolean testConnection;
 
 boolean sketchFullScreen() {
   return true;
 }
 
-void setupLevel() {
-  networkManager = new NetworkManager(new Client(this, "25.136.74.15", 5205));
-  playerManager = new PlayerManager();
+void beginProgram() {
+  stage = 1;
+  level = 1;
   world = new World();
   world.thisPlayer.username = "TNTniceman";
   world.thisPlayer.textureID = 25;
   gui = new GUI();
   startmenu = new StartMenu();
+  testConnection = false;
 }
 
 void setup() {
@@ -49,7 +51,7 @@ void setup() {
   input = new Input();
   minim = new Minim(this);
   loadFiles();
-  setupLevel(); //setup first level
+  beginProgram();
 }
 
 void loadFiles() {
@@ -64,12 +66,28 @@ void loadFiles() {
 void draw()
 {
   background(255);
-  input.updateMouse();
   if (stage == 1) {
     startmenu.render();
-    if (input.mouseLeft) stage = 2;
+    startmenu.update();
   } else if (stage == 2) {
-    noCursor();
+    world.update();
+    gui.update();
+    world.render();
+    gui.render();
+  } else if (stage == 3) {
+    text("Connecting to Server...", width/2, height/2);
+    if (testConnection) {
+      try {
+        networkManager = new NetworkManager(new Client(this, "25.136.74.15", 5205));
+        playerManager = new PlayerManager();
+        stage = 4;
+      } catch(Exception e) {
+        println("Exception: " + e);
+        stage = 1;
+      }
+    }
+    testConnection = true;
+  } else if (stage == 4) {
     world.update();
     gui.update();
     world.render();
@@ -77,24 +95,16 @@ void draw()
   }
 }
 
-//this will determine if a connection can be made to the server
-boolean connectAttempt() {
-  try {
-    if (networkManager.getClient().available() > 0) {
-      String packetData = networkManager.getClient().readString();
-      println("Client is receiving data...");
-
-      if (packetData != null) {
-        networkManager.receivePacket(networkManager.decodePacket(packetData));
-      }
-    }
-    return true;
-  } 
-  catch(Exception e) {
-    println("Exception: "+e);
-    return false;
-  }
-}
+//void connectAttempt() {
+//  if (networkManager.getClient().available() > 0) {
+//    String packetData = networkManager.getClient().readString();
+//    println("Client is receiving data...");
+//
+//    if (packetData != null) {
+//      networkManager.receivePacket(networkManager.decodePacket(packetData));
+//    }
+//  }
+//}
 
 void keyPressed() {
   input.pressKey(key, keyCode);
@@ -112,14 +122,14 @@ void mouseReleased() {
   input.releaseMouse(mouseButton);
 }
 
-boolean collideRects(PVector pos1, PVector size1, PVector pos2, PVector size2) {
-  if (pos1.x-size1.x/2<pos2.x+size2.x/2 &&
-    pos1.x+size1.x/2>pos2.x-size2.x/2 &&
-    pos1.y-size1.y/2<pos2.y+size2.y/2 &&
-    pos1.y+size1.y/2>pos2.y-size2.y/2) {
-    return true;
-  } else {
-    return false;
-  }
-}
+//boolean collideRects(PVector pos1, PVector size1, PVector pos2, PVector size2) {
+//  if (pos1.x-size1.x/2<pos2.x+size2.x/2 &&
+//    pos1.x+size1.x/2>pos2.x-size2.x/2 &&
+//    pos1.y-size1.y/2<pos2.y+size2.y/2 &&
+//    pos1.y+size1.y/2>pos2.y-size2.y/2) {
+//    return true;
+//  } else {
+//    return false;
+//  }
+//}
 

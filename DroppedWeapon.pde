@@ -20,7 +20,7 @@ class DroppedWeapon extends Entity {
   }
   
   private void checkPickUp() {
-    if (input.mouseRight && world.thisPlayer.weaponType == 0 && collideRects(world.thisPlayer.position,world.thisPlayer.size,position,size)) {
+    if (input.mouseRight && world.thisPlayer.weaponType == 0 && collideBox.intersects(world.thisPlayer.collideBox)) {
       if (millis()-world.mouseRightTime>500) {
         world.mouseRightTime = millis();
         world.thisPlayer.weaponType = type;

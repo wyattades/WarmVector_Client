@@ -8,6 +8,7 @@ class GUI {
   }
   
   void update() {
+    noCursor();
     updateCursor();
   }
   
@@ -84,7 +85,7 @@ class GUI {
   }
   
   private void updateCursor() {
-    cursor = input.mousePosition.get();
+    cursor.set(mouseX,mouseY,0);
     PVector p = world.thisPlayer.dispPos.get();
     p.sub(world.dispW/2, world.dispH/2, 0);
     cursor.add(p);

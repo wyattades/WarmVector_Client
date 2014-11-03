@@ -1,17 +1,11 @@
 class Input {
-  
-  boolean keyUp,keyLeft,keyRight,keyDown,mouseLeft,mouseRight,K;
-  PVector mousePosition;
-  
-  Input(){
+
+  boolean keyUp, keyLeft, keyRight, keyDown, mouseLeft, mouseRight, K;
+
+  Input() {
     keyUp = keyLeft = keyRight = keyDown = mouseLeft = mouseRight = K = false;
-    mousePosition = new PVector(mouseX,mouseY);
   }
 
-  void updateMouse() {
-    mousePosition.set(mouseX,mouseY);
-  }
-  
   void pressMouse(int mouseButton) {
     if (mouseButton == LEFT) {
       mouseLeft = true;
@@ -20,7 +14,7 @@ class Input {
       mouseRight = true;
     }
   }
-  
+
   void releaseMouse(int mouseButton) {
     if (mouseButton == LEFT) {
       mouseLeft = false;
@@ -29,7 +23,7 @@ class Input {
       mouseRight = false;
     }
   }
-  
+
   void pressKey(int key, int keyCode) {
     if (keyCode == 'W') {
       keyUp = true;
@@ -45,9 +39,9 @@ class Input {
     }
     if (keyCode == 'K') {
       K = true;
-    } 
+    }
   }
-  
+
   void releaseKey(int key, int keyCode) {
     if (keyCode == 'W') {
       keyUp = false;
@@ -63,6 +57,7 @@ class Input {
     }
     if (keyCode == 'K') {
       K = false;
-    } 
+    }
   }
 }
+
