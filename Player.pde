@@ -28,6 +28,7 @@ class Player extends Entity
       rect(0,-4,40,8);
       rectMode(CENTER);
     }
+    strokeWeight(0);
     fill(#26DEB7);
     stroke(0);
     rect(0,0,size.x*.6,size.y);   
