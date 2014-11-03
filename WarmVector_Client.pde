@@ -10,14 +10,18 @@ NetworkManager networkManager;
 PlayerManager playerManager;
 
 Minim minim;
-String[] audioStrings = {}; //stores the names of all the audio files
-String[] imageStrings = {"leveltiles_01","levelmap_01"}; //stores the names of all the image files
+String[] audioStrings = {
+}; //stores the names of all the audio files
+String[] imageStrings = {
+  "leveltiles_01", "levelmap_01"
+}; //stores the names of all the image files
 AudioPlayer[] audio = new AudioPlayer[audioStrings.length]; //creates an array for the audio files
 PImage[] image = new PImage[imageStrings.length]; //creates an array for the image files
 
 Input input;
 World world;
 GUI gui;
+StartMenu startmenu;
 
 int level = 1; //the current level
 int stage = 1;
@@ -33,10 +37,11 @@ void setupLevel() {
   world.thisPlayer.username = "TNTniceman";
   world.thisPlayer.textureID = 25;
   gui = new GUI();
+  startmenu = new StartMenu();
 }
 
 void setup() {
-  size(displayWidth,displayHeight);
+  size(displayWidth, displayHeight);
   noCursor();
   rectMode(CENTER);
   imageMode(CENTER);
@@ -61,36 +66,53 @@ void draw()
   background(255);
   input.updateMouse();
   if (stage == 1) {
-    fill(0);
-    textSize(40);
-    text("Click to Start Game",width/2,height/2);//display start menu
+    startmenu.render();
     if (input.mouseLeft) stage = 2;
   } else if (stage == 2) {
-    
+    noCursor();
     world.update();
     gui.update();
     world.render();
     gui.render();
   }
-  if(networkManager.getClient().available() > 0)
+  if (networkManager.getClient().available() > 0)
   {
     String packetData = networkManager.getClient().readString();
     println("Client is receiving data...");
-    
-    if(packetData != null)
+
+    if (packetData != null)
     {
       println(packetData);
       networkManager.receivePacket(networkManager.decodePacket(packetData));
-    } 
+    }
+  }
+}
+
+//this will determine if a connection can be made to the server
+boolean connectAttempt() {
+  try {
+    if (networkManager.getClient().available() > 0) {
+      String packetData = networkManager.getClient().readString();
+      println("Client is receiving data...");
+
+      if (packetData != null) {
+        networkManager.receivePacket(networkManager.decodePacket(packetData));
+      }
+    }
+    return true;
+  } 
+  catch(Exception e) {
+    println("Exception: "+e);
+    return false;
   }
 }
 
 void keyPressed() {
-  input.pressKey(key,keyCode);
+  input.pressKey(key, keyCode);
 }
 
 void keyReleased() {
-  input.releaseKey(key,keyCode);
+  input.releaseKey(key, keyCode);
 }
 
 void mousePressed() {
@@ -103,11 +125,12 @@ void mouseReleased() {
 
 boolean collideRects(PVector pos1, PVector size1, PVector pos2, PVector size2) {
   if (pos1.x-size1.x/2<pos2.x+size2.x/2 &&
-  pos1.x+size1.x/2>pos2.x-size2.x/2 &&
-  pos1.y-size1.y/2<pos2.y+size2.y/2 &&
-  pos1.y+size1.y/2>pos2.y-size2.y/2) {
+    pos1.x+size1.x/2>pos2.x-size2.x/2 &&
+    pos1.y-size1.y/2<pos2.y+size2.y/2 &&
+    pos1.y+size1.y/2>pos2.y-size2.y/2) {
     return true;
   } else {
     return false;
   }
 }
+

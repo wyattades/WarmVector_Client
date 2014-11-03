@@ -61,7 +61,7 @@ class GUI {
     PVector d = new PVector(-rotateDist,0);
     d.rotate(world.thisPlayer.orientation);
     d.add(world.dispW/2,world.dispH/2,0);
-    float maxspeed = 60, accel = 0.003, neg_accel = accel*0.8;
+    float maxspeed = 60, accel = 0.03, neg_accel = accel*0.8;
     if (world.thisPlayer.velocity.x == 0) {
       if (dispVelocity.x < 0) dispVelocity.x += neg_accel;
       if (dispVelocity.x > 0) dispVelocity.x -= neg_accel;
@@ -79,7 +79,7 @@ class GUI {
     } else {
       if (dispVelocity.y < maxspeed) dispVelocity.y += accel;
     }
-    d.add(dispVelocity);
+    //d.add(dispVelocity);
     return d;
   }
   
