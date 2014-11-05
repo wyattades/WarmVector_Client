@@ -40,7 +40,7 @@ void beginProgram() {
   level = 1;
   connectionTimer = 0;
   world = new World();
-  world.thisPlayer.username = "TNTniceman";
+  world.thisPlayer.username = "wyattades";
   world.thisPlayer.textureID = 25;
   gui = new GUI();
   startmenu = new StartMenu();
@@ -49,6 +49,7 @@ void beginProgram() {
 
 void setup() {
   size(displayWidth, displayHeight);
+  frameRate(30);
   noCursor();
   rectMode(CENTER);
   imageMode(CENTER);
@@ -82,9 +83,9 @@ void draw()
     gui.render();
   } else if (stage == 3) {
     text("Connecting to Server...", width/2, height/2);
-    if (testConnection) {
+    if (testConnection) { //i have a boolean so i can print the above text before trying to connect
       connectionTimer = millis();
-      networkManager = new NetworkManager(new Client(this, "25.16.219.103", 5205));
+      networkManager = new NetworkManager(new Client(this, "25.136.74.15", 5205));
       playerManager = new PlayerManager();
       packetSendFast = CountdownTimer.getNewCountdownTimer(this).configure(200, 1000000).start();// 15 packets every second
       if (millis()-connectionTimer > 4000) {

@@ -20,7 +20,7 @@ class PlayerInitializePacket implements SendPacket, ReceivePacket
   
   void run()
   {
-    if(id == thisPlayer.id)
+    if(id == world.thisPlayer.id)
       return;
     
     Player player = playerManager.getPlayer(id);

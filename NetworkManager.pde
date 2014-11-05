@@ -59,6 +59,9 @@ class NetworkManager
     
     ReceivePacket packet = (ReceivePacket)networkManager.packetList.get(packetData.split("/")[0]);
     
+    if(packet != null)
+      println(packet.toString());
+    
     for(int i = 0; i < data.length - 1; i++)
       initData[i] = data[i+1];
     
