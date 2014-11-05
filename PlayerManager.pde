@@ -23,7 +23,10 @@ class PlayerManager
   
   void sendPlayerPosition()
   {
-    if(world.thisPlayer.valid)
+//    if(world.thisPlayer.valid)
+//    {
+      println("FOUOEUFBE");
       networkManager.sendPacket(new PlayerPositionPacket(world.thisPlayer.position.x, world.thisPlayer.position.y, world.thisPlayer.orientation)); 
+//    }
   }
 }

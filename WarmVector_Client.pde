@@ -42,6 +42,7 @@ void beginProgram() {
   world = new World();
   world.thisPlayer.username = "wyattades";
   world.thisPlayer.textureID = 25;
+  playerManager = new PlayerManager();
   gui = new GUI();
   startmenu = new StartMenu();
   testConnection = false;
@@ -86,7 +87,6 @@ void draw()
     if (testConnection) { //i have a boolean so i can print the above text before trying to connect
       connectionTimer = millis();
       networkManager = new NetworkManager(new Client(this, "25.136.74.15", 5205));
-      playerManager = new PlayerManager();
       packetSendFast = CountdownTimer.getNewCountdownTimer(this).configure(200, 1000000).start();// 15 packets every second
       if (millis()-connectionTimer > 4000) {
         stage = 1;
@@ -99,9 +99,8 @@ void draw()
   } else if (stage == 4) {
     if (networkManager.getClient().available() > 0) {
       String packetData = networkManager.getClient().readString();
-      println("Client is receiving data...");
 
-      if (packetData != null && packetData.length()<25) {
+      if (packetData != null && !packetData.contains("**") && packetData.length()>1) {
         networkManager.receivePacket(networkManager.decodePacket(packetData));
       }
     }
@@ -135,7 +134,6 @@ void onTickEvent(int id, long timeLeftUntilFinish)
   case 0:
 
     playerManager.sendPlayerPosition();
-
     break;
   }
 }

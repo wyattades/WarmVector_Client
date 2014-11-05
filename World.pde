@@ -44,11 +44,8 @@ public class World {
   }
 
   public void update() {
-    for (int i = 0; i < players.size(); i++) {
-      Player p = players.get(i);
-      if (p.state == false && p.weaponType != 0) {
-        addDroppedWeapon(p);        
-      }
+    if (thisPlayer.state == false && thisPlayer.weaponType != 0) {
+      addDroppedWeapon(thisPlayer);        
     }
     for (int i = 0; i < ents.size(); i++) {
       Entity e = ents.get(i);
@@ -80,9 +77,13 @@ public class World {
 
   public void render() {
     displayBackgroundImage();
-    for (int i = 0; i < bullets.size (); i++) {
+    for (int i = 0; i < bullets.size(); i++) {
       Vector_Bullet b = bullets.get(i);
       b.render();
+    }
+    for (int i = 0; i < playerManager.playerList.size(); i++) {
+      Player p = playerManager.playerList.get(i);
+      p.render();
     }
     for (int i = 0; i < ents.size (); i++) {
       Entity e = ents.get(i);

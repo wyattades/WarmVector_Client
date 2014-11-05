@@ -39,6 +39,7 @@ class NetworkManager
     
     packetData += "*";
     
+    println("Sending: "+packetData);
     return packetData;
   }
   
@@ -53,19 +54,19 @@ class NetworkManager
     for(int i = 1; i < rawData.length() - 1; i++)
       packetData += rawData.charAt(i);
       
-    println("Packet data: " + packetData);
+    println("Receiving: " + packetData.toString());
     
     String[] data = packetData.split("/"), initData = new String[data.length - 1];
     
     ReceivePacket packet = (ReceivePacket)networkManager.packetList.get(packetData.split("/")[0]);
     
-    if(packet != null)
-      println(packet.toString());
+    if(packet == null)
+      println("  ****  packet = null");
     
     for(int i = 0; i < data.length - 1; i++)
       initData[i] = data[i+1];
     
-    packet.initialize(initData);
+    if (initData != null && packet != null) packet.initialize(initData);
     
     return packet;
   }
