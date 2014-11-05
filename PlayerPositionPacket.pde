@@ -33,11 +33,11 @@ class PlayerPositionPacket implements ReceivePacket, SendPacket
   String dump()
   {
     String dumpInfo = "";
-    dumpInfo += world.thisPlayer.position.x;
+    dumpInfo += nf(world.thisPlayer.position.x,4,1);
     dumpInfo += "/";
-    dumpInfo += world.thisPlayer.position.y;
+    dumpInfo += nf(world.thisPlayer.position.y,4,1);
     dumpInfo += "/";
-    dumpInfo += world.thisPlayer.orientation;
+    dumpInfo += nf(world.thisPlayer.orientation,1,2);
     
     
     return dumpInfo;

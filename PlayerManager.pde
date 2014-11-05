@@ -26,7 +26,7 @@ class PlayerManager
 //    if(world.thisPlayer.valid)
 //    {
       println("FOUOEUFBE");
-      networkManager.sendPacket(new PlayerPositionPacket(world.thisPlayer.position.x, world.thisPlayer.position.y, world.thisPlayer.orientation)); 
+      networkManager.sendPacket(new PlayerPositionPacket((world.thisPlayer.position.x, world.thisPlayer.position.y, world.thisPlayer.orientation)); 
 //    }
   }
 }

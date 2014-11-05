@@ -47,6 +47,10 @@ class PlayerInitializePacket implements SendPacket, ReceivePacket
     return dumpInfo;
   }
   
+  int maxDigitCount() {
+    return 100;
+  }
+  
   Packet clone()
   {
     return new PlayerInitializePacket(); 
