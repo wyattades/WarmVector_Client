@@ -101,7 +101,7 @@ void draw()
       String packetData = networkManager.getClient().readString();
       println("Client is receiving data...");
 
-      if (packetData != null) {
+      if (packetData != null && packetData.length()<25) {
         networkManager.receivePacket(networkManager.decodePacket(packetData));
       }
     }
