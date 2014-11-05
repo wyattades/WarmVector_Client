@@ -9,6 +9,8 @@ import java.awt.geom.*;
 
 NetworkManager networkManager;
 PlayerManager playerManager;
+Player thisPlayer;
+CountdownTimer packetSendFast;
 
 Minim minim;
 String[] audioStrings = {
@@ -26,6 +28,7 @@ StartMenu startmenu;
 
 int level; //the current level
 int stage;
+int connectionTimer;
 boolean testConnection;
 
 boolean sketchFullScreen() {
@@ -35,6 +38,7 @@ boolean sketchFullScreen() {
 void beginProgram() {
   stage = 1;
   level = 1;
+  connectionTimer = 0;
   world = new World();
   world.thisPlayer.username = "TNTniceman";
   world.thisPlayer.textureID = 25;
@@ -70,6 +74,7 @@ void draw()
   if (stage == 1) {
     startmenu.render();
     startmenu.update();
+    testConnection = false;
   } else if (stage == 2) {
     world.update();
     gui.update();
@@ -78,34 +83,33 @@ void draw()
   } else if (stage == 3) {
     text("Connecting to Server...", width/2, height/2);
     if (testConnection) {
-      try {
-        networkManager = new NetworkManager(new Client(this, "25.136.74.15", 5205));
-        playerManager = new PlayerManager();
-        stage = 4;
-      } catch(Exception e) {
-        println("Exception: " + e);
+      connectionTimer = millis();
+      networkManager = new NetworkManager(new Client(this, "25.16.219.103", 5205));
+      playerManager = new PlayerManager();
+      packetSendFast = CountdownTimer.getNewCountdownTimer(this).configure(200, 1000000).start();// 15 packets every second
+      if (millis()-connectionTimer > 4000) {
         stage = 1;
+        println("Connection Timed Out");
+      } else {
+        stage = 4;
       }
     }
     testConnection = true;
   } else if (stage == 4) {
+    if (networkManager.getClient().available() > 0) {
+      String packetData = networkManager.getClient().readString();
+      println("Client is receiving data...");
+
+      if (packetData != null) {
+        networkManager.receivePacket(networkManager.decodePacket(packetData));
+      }
+    }
     world.update();
     gui.update();
     world.render();
     gui.render();
   }
 }
-
-//void connectAttempt() {
-//  if (networkManager.getClient().available() > 0) {
-//    String packetData = networkManager.getClient().readString();
-//    println("Client is receiving data...");
-//
-//    if (packetData != null) {
-//      networkManager.receivePacket(networkManager.decodePacket(packetData));
-//    }
-//  }
-//}
 
 void keyPressed() {
   input.pressKey(key, keyCode);
@@ -123,14 +127,19 @@ void mouseReleased() {
   input.releaseMouse(mouseButton);
 }
 
-//boolean collideRects(PVector pos1, PVector size1, PVector pos2, PVector size2) {
-//  if (pos1.x-size1.x/2<pos2.x+size2.x/2 &&
-//    pos1.x+size1.x/2>pos2.x-size2.x/2 &&
-//    pos1.y-size1.y/2<pos2.y+size2.y/2 &&
-//    pos1.y+size1.y/2>pos2.y-size2.y/2) {
-//    return true;
-//  } else {
-//    return false;
-//  }
-//}
+void onTickEvent(int id, long timeLeftUntilFinish)
+{
+  switch(id)
+  {
+  case 0:
+
+    playerManager.sendPlayerPosition();
+
+    break;
+  }
+}
+
+void onFinishEvent(int timerId)
+{
+}
 

@@ -20,14 +20,14 @@ class PlayerInitializePacket implements SendPacket, ReceivePacket
   
   void run()
   {
-    if(id == world.thisPlayer.id)
+    if(id == thisPlayer.id)
       return;
     
     Player player = playerManager.getPlayer(id);
     
     if(player == null)
     {
-      playerManager.addPlayer(new Player(0,0,0,0,0,0)); 
+      playerManager.addPlayer(new Player(world.mapW/2,world.mapH/2,64,64,0,0)); 
     }
     
     player.username = username;
@@ -39,10 +39,8 @@ class PlayerInitializePacket implements SendPacket, ReceivePacket
   {
     String dumpInfo = "";
     dumpInfo += username;
-    dumpInfo += " ";
+    dumpInfo += "/";
     dumpInfo += textureID;
-    
-    println("Client dump:" + dumpInfo);
    
     return dumpInfo;
   }

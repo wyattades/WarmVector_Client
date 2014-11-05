@@ -11,10 +11,10 @@ class PlayerIdentificationPacket implements ReceivePacket
   
   void run()
   { 
-    world.thisPlayer.id = id;
+    thisPlayer.id = id;
     
     //Send PlayerInitializePacket
-    networkManager.sendPacket(new PlayerInitializePacket(world.thisPlayer.username, world.thisPlayer.textureID));
+    networkManager.sendPacket(new PlayerInitializePacket(thisPlayer.username, thisPlayer.textureID));
   }
   
   String getID()
@@ -25,5 +25,10 @@ class PlayerIdentificationPacket implements ReceivePacket
   Packet clone()
   {
     return new PlayerIdentificationPacket(); 
+  }
+  
+  int getDataCount()
+  {
+    return 1; 
   }
 }
