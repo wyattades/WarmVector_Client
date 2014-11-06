@@ -17,6 +17,10 @@ class PlayerIdentificationPacket implements ReceivePacket
     //Send PlayerInitializePacket
     networkManager.sendPacket(new PlayerInitializePacket(world.thisPlayer.username, world.thisPlayer.textureID));
   }
+  
+  int maxDigitCount() {
+    return 20;
+  }
 
   String getID()
   {

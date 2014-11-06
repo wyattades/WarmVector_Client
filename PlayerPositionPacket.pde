@@ -21,7 +21,7 @@ class PlayerPositionPacket implements ReceivePacket, SendPacket
   }
 
   int maxDigitCount() {
-    return 100;
+    return 20;
   }
 
   void run()

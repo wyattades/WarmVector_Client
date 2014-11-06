@@ -31,30 +31,30 @@ class NetworkManager
 
   String encodePacket(SendPacket packet)
   {
-    String packetData = "*";
+    String packetData = "";
 
     packetData += packet.getID();
     packetData += "/";
     packetData += packet.dump();
 
-    packetData += "*";
-
-    println("Sending: "+packetData);
+    println("S: "+packetData);
+    
     return packetData;
   }
 
   ReceivePacket decodePacket(String rawData)
   {
-    if (rawData.charAt(0) != '*' && rawData.charAt(rawData.length() - 1) != '*')
-    {
-      return null;
-    }
+//    if (rawData.charAt(0) != '*' && rawData.charAt(rawData.length() - 1) != '*')
+//    {
+//      return null;
+//    }
+
+    println("R: " + rawData);
 
     String packetData = "";
-    for (int i = 1; i < rawData.length () - 1; i++)
+    for (int i = 0; i < rawData.length (); i++)
       packetData += rawData.charAt(i);
 
-    println("Receiving: " + packetData);
 
     String[] data = packetData.split("/"), initData = new String[data.length - 1];
 
@@ -63,7 +63,7 @@ class NetworkManager
     for (int i = 0; i < data.length - 1; i++)
       initData[i] = data[i+1];
 
-    if (initData != null && packet != null) packet.initialize(initData);
+    if (rawData.length() == packet.maxDigitCount()) packet.initialize(initData);
 
     return packet;
   }
