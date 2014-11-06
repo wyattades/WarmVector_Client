@@ -50,7 +50,7 @@ void beginProgram() {
 
 void setup() {
   size(displayWidth, displayHeight);
-  frameRate(30);
+  frameRate(60);
   noCursor();
   rectMode(CENTER);
   imageMode(CENTER);
