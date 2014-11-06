@@ -39,7 +39,7 @@ class Button {
     this.f = f;
     this.s = s;
   }
-  
+
   boolean overBox() {
     if (mouseX > pos.x-size.x/2 && mouseX < pos.x+size.x/2 && mouseY > pos.y-size.y/2 && mouseY < pos.y+size.y/2)
       return true;

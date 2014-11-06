@@ -7,7 +7,7 @@ class Vector_Bullet {
   int add;
 
   Vector_Bullet(float i_x, float i_y, float angle, float spread, float damage) {
-    add = 1;
+    add = 2;
     position = new PVector(i_x, i_y);
     disp_i_pos = new PVector(0, 0);
     disp_f_pos = new PVector(0, 0);
@@ -63,7 +63,7 @@ class Vector_Bullet {
     PVector trail_pos = f_pos.get();
     trail_pos.sub(trail);
     disp_trail_pos.set(gui.dispPos(trail_pos));
-    
+
     if (add >= maxAdd) {
       //shot.setMag(0);
       state = false;

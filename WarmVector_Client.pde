@@ -13,11 +13,11 @@ Player thisPlayer;
 CountdownTimer packetSendFast;
 
 Minim minim;
-String[] audioStrings = {
-}; //stores the names of all the audio files
-String[] imageStrings = {
+String[] audioStrings = { //stores the names of all the audio files
+}; 
+String[] imageStrings = { //stores the names of all the image files
   "leveltiles_01", "levelmap_01"
-}; //stores the names of all the image files
+}; 
 AudioPlayer[] audio = new AudioPlayer[audioStrings.length]; //creates an array for the audio files
 PImage[] image = new PImage[imageStrings.length]; //creates an array for the image files
 
@@ -26,7 +26,7 @@ World world;
 GUI gui;
 StartMenu startmenu;
 
-int level; //the current level
+int level;
 int stage;
 int connectionTimer;
 boolean testConnection;
@@ -37,7 +37,7 @@ boolean sketchFullScreen() {
 
 void beginProgram() {
   stage = 1;
-  level = 1;
+  level = 0;
   connectionTimer = 0;
   world = new World();
   world.thisPlayer.username = "wyattades";
