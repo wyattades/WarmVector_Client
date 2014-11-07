@@ -12,6 +12,7 @@ PlayerManager playerManager;
 Player thisPlayer;
 CountdownTimer packetSendFast;
 
+//String[] config = loadStrings("..\..\WarmVector\config.txt");
 Minim minim;
 String[] audioStrings = { //stores the names of all the audio files
 }; 
@@ -40,7 +41,7 @@ void beginProgram() {
   level = 0;
   connectionTimer = 0;
   world = new World();
-  world.thisPlayer.username = "wyattades";
+  world.thisPlayer.username = "Big_Cock69";
   world.thisPlayer.textureID = 25;
   playerManager = new PlayerManager();
   gui = new GUI();

@@ -103,6 +103,7 @@ public class World {
       Player p = playerManager.playerList.get(i);
       p.render();
     }
+    //println("People: "+playerManager.playerList.size());
     for (int i = 0; i < ents.size (); i++) {
       Entity e = ents.get(i);
       e.render();

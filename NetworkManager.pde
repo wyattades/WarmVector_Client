@@ -39,7 +39,7 @@ class NetworkManager
     
     packetData += "*";
 
-    println("S: "+packetData);
+    //println("S: "+packetData);
     
     return packetData;
   }
@@ -51,7 +51,7 @@ class NetworkManager
       return null;
     }
 
-    println("R: " + rawData);
+    //println("R: " + rawData);
 
     String packetData = "";
     for (int i = 1; i < rawData.length() - 1; i++)
@@ -64,7 +64,9 @@ class NetworkManager
 
     for (int i = 0; i < data.length - 1; i++)
       initData[i] = data[i+1];
-
+    
+    if (packet.getID() == "0" || packet.getID() == "1") println("R: "+rawData);
+    
     packet.initialize(initData);
 
     return packet;

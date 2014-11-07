@@ -32,7 +32,7 @@ class PlayerInitializePacket implements SendPacket, ReceivePacket
     {
       playerManager.addPlayer(new Player(world.mapW/2, world.mapH/2, 64, 64, 0, 0));
     }
-
+    
     player.username = username;
     player.textureID = textureID;
     player.valid = true;
