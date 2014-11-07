@@ -20,10 +20,6 @@ class PlayerPositionPacket implements ReceivePacket, SendPacket
     orientation = Float.parseFloat(packetData[3]);
   }
 
-  int maxDigitCount() {
-    return 20;
-  }
-
   void run()
   {
     Player player = playerManager.getPlayer(id);
@@ -38,11 +34,11 @@ class PlayerPositionPacket implements ReceivePacket, SendPacket
   String dump()
   {
     String dumpInfo = "";
-    dumpInfo += nf(world.thisPlayer.position.x, 4, 1);
+    dumpInfo += round(world.thisPlayer.position.x);
     dumpInfo += "/";
-    dumpInfo += nf(world.thisPlayer.position.y, 4, 1);
+    dumpInfo += round(world.thisPlayer.position.y);
     dumpInfo += "/";
-    dumpInfo += nf(world.thisPlayer.orientation, 1, 2);
+    dumpInfo += nf(world.thisPlayer.orientation,1,2);
 
 
     return dumpInfo;

@@ -46,7 +46,7 @@ class P_Player extends Player {
   }
 
   private void updateVelocity() {
-    float s = 8; //speed is based on framerate so it remains constant
+    int s = 8; //speed is based on framerate so it remains constant
     float dx = size.x*.3;
     float dy = size.y*.3;
 
