@@ -1,10 +1,9 @@
 class Player extends Entity
 {
-  String username;
+  String username,id;
   int textureID;
   boolean valid;
   int weaponType, round;
-  int id;
 
   Player(float i_x, float i_y, float w, float h, int weaponType, int round) {
     super(i_x, i_y, w, h);

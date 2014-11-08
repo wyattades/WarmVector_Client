@@ -1,13 +1,13 @@
 class PlayerIdentificationPacket implements ReceivePacket
 {
-  int id;
+  String id;
 
   PlayerIdentificationPacket() {
   }
 
   void initialize(String[] packetData)
   {
-    id = Integer.parseInt(packetData[0]);
+    id = packetData[0];
   }
 
   void run()

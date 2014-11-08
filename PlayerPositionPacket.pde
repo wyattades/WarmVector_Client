@@ -1,7 +1,7 @@
 class PlayerPositionPacket implements ReceivePacket, SendPacket
 {
   float x, y, orientation;
-  int id;
+  String id;
 
   PlayerPositionPacket() {
   }
@@ -14,7 +14,7 @@ class PlayerPositionPacket implements ReceivePacket, SendPacket
 
   void initialize(String[] packetData)
   {
-    id = Integer.parseInt(packetData[0]);
+    id = packetData[0];
     x = Float.parseFloat(packetData[1]);
     y = Float.parseFloat(packetData[2]);
     orientation = Float.parseFloat(packetData[3]);
