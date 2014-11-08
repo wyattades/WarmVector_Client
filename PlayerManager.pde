@@ -12,10 +12,10 @@ class PlayerManager
     playerList.add(player);
   }
 
-  Player getPlayer(String id)
+  Player getPlayer(int id)
   {
     for (Player p : playerList)
-      if (p.id.equals(id))
+      if (p.id == id)
         return p;
 
     return null;

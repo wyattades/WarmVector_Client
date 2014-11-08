@@ -1,7 +1,8 @@
 class PlayerInitializePacket implements SendPacket, ReceivePacket
 {
-  String username,id;
+  String username;
   int textureID;
+  int id;
 
   PlayerInitializePacket() {
   }
@@ -13,14 +14,14 @@ class PlayerInitializePacket implements SendPacket, ReceivePacket
 
   void initialize(String[] packetData)
   {
-    id = packetData[0];
+    id = Integer.parseInt(packetData[0]);
     username = packetData[1];
     textureID = Integer.parseInt(packetData[2]);
   }
 
   void run()
   {
-    if (id.equals(world.thisPlayer.id)) {
+    if (id == world.thisPlayer.id) {
       world.thisPlayer.valid = true;
       return;
     }
