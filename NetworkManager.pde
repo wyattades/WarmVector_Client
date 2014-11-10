@@ -11,6 +11,7 @@ class NetworkManager
     packetList = new HashMap<String, Packet>();
     packetList.put("0", new PlayerIdentificationPacket());
     packetList.put("1", new PlayerInitializePacket());
+    packetList.put("2", new PlayerConnectedListPacket());
     packetList.put("3", new PlayerPositionPacket());
   }
   
