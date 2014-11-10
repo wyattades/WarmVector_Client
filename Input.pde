@@ -40,7 +40,7 @@ class Input {
     if (keyCode == 'K') {
       K = true;
     }
-    if (key == ESC) {
+    if (key == TAB) {
       esc = true;
     }
   }
@@ -61,7 +61,7 @@ class Input {
     if (keyCode == 'K') {
       K = false;
     }
-    if (key == ESC) {
+    if (key == TAB) {
       esc = false;
     }
   }

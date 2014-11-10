@@ -28,6 +28,11 @@ class GUI {
     strokeWeight(60);
     stroke(255, 0, 0);
     point(world.thisPlayer.position.x-world.mapW/2, world.thisPlayer.position.y-world.mapH/2);
+    for (int i = 0; i < playerManager.playerList.size (); i++) {
+      Player p = playerManager.playerList.get(i);
+      stroke(0,0,255);
+      point(p.position.x-world.mapW/2,p.position.y-world.mapH/2);
+    }
     popMatrix();
   }
 

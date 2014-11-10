@@ -72,6 +72,7 @@ public class World {
       Player p = playerManager.playerList.get(i);
       p.update();
     }
+    
     for (int i = 0; i < droppedWeps.size (); i++) {
       DroppedWeapon dw = droppedWeps.get(i);
       dw.update();
@@ -100,21 +101,21 @@ public class World {
       b.render();
     }
 
-    for (int i = 0; i < playerManager.playerList.size (); i++) {
-      Player p = playerManager.playerList.get(i);
-      p.render();
-    }
-
     for (int i = 0; i < droppedWeps.size (); i++) {
       DroppedWeapon dw = droppedWeps.get(i);
       dw.render();
+    }
+    
+    for (int i = 0; i < playerManager.playerList.size (); i++) {
+      Player p = playerManager.playerList.get(i);
+      p.render();
     }
     
     thisPlayer.render();
     
     displayWords();
 
-    //println("People: "+playerManager.playerList.size());
+    println("People: "+playerManager.playerList.size());
   }
 
   void addDroppedWeapon(Player p) {
