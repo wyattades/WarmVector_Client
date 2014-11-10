@@ -1,36 +1,48 @@
 class PlayerIdentificationPacket implements ReceivePacket
 {
+  String ip;
   int id;
-
-  PlayerIdentificationPacket() {
-  }
-
+  
+  PlayerIdentificationPacket() { }
+  
   void initialize(String[] packetData)
   {
-    id = Integer.parseInt(packetData[0]);
+    ip = packetData[0];
+    id = Integer.parseInt(packetData[1]);
   }
-
+  
   void run()
   { 
-    world.thisPlayer.id = id;
-
+    if(ip == networkManager.client.ip())
+    {
+      println("IP received: " + id);
+      println("IP of client: " + networkManager.client.ip());
+      return;
+    }
+    
+    thisPlayer.id = id;
+    
     //Send PlayerInitializePacket
-    networkManager.sendPacket(new PlayerInitializePacket(world.thisPlayer.username, world.thisPlayer.textureID));
+    networkManager.sendPacket(new PlayerInitializePacket(thisPlayer.username, thisPlayer.textureID));
   }
-
+  
   String getID()
   {
-    return "0";
+    return "0"; 
   }
-
+  
   Packet clone()
   {
-    return new PlayerIdentificationPacket();
+    return new PlayerIdentificationPacket(); 
   }
-
+  
+  boolean isPrivate()//It really is private, but seeing as the user has no ID yet we just use the IP
+  {
+    return false; 
+  }
+  
   int getDataCount()
   {
-    return 1;
+    return 1; 
   }
 }
-
