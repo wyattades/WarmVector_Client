@@ -21,7 +21,8 @@ class NetworkManager
   
   void receivePacket(ReceivePacket packet)
   {
-    packet.run();
+    if (packet != null)
+      packet.run();
   }
   
   Client getClient()
@@ -38,7 +39,7 @@ class NetworkManager
     packetData += packet.dump();
     
     packetData += "*";
-    
+    println("S: "+packetData);
     return packetData;
   }
   
@@ -63,7 +64,7 @@ class NetworkManager
     int indexMod = packet.isPrivate() ? 2 : 1;//If its private, then we already checked the player ID so we can chop it off
     String[] initData = new String[data.length - indexMod];//data.length = 5;  5 - 1(packet ID) - 1(player ID) = 3
     
-    println("Packet data: " + packetData);
+    println("R: "+packetData);
       
     for(int i = 0; i < initData.length; i++)// We also need to skip the first two pieces of information if its private
       initData[i] = data[i+indexMod];
