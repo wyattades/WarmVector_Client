@@ -33,7 +33,7 @@ int connectionTimer;
 boolean testConnection;
 
 boolean sketchFullScreen() {
-  return true;
+  return false;
 }
 
 void beginProgram() {
@@ -41,7 +41,7 @@ void beginProgram() {
   level = 0;
   connectionTimer = 0;
   world = new World();
-  world.thisPlayer.username = "Big_Cock69";
+  world.thisPlayer.username = "wyattades";
   world.thisPlayer.textureID = 25;
   playerManager = new PlayerManager();
   gui = new GUI();
@@ -50,7 +50,7 @@ void beginProgram() {
 }
 
 void setup() {
-  size(displayWidth, displayHeight);
+  size(600, 600);
   frameRate(60);
   noCursor();
   rectMode(CENTER);
@@ -100,16 +100,22 @@ void draw()
   } else if (stage == 4) {
     if (networkManager.getClient().available() > 0) {
       String packetData = networkManager.getClient().readString();
+      //println("Client is receiving data...");
 
-      if (packetData != null && !packetData.contains("**") && packetData.length()>1) {
-        networkManager.receivePacket(networkManager.decodePacket(packetData));
+      if (packetData != null)
+      {
+        if (packetData.length() > 1 && !packetData.contains("**"))
+          networkManager.receivePacket(networkManager.decodePacket(packetData));
       }
     }
     world.update();
     gui.update();
     world.render();
     gui.render();
+  } else if (stage == 10) {
+    exit();
   }
+  if (input.esc) stage = 1;
 }
 
 void keyPressed() {

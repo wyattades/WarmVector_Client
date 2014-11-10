@@ -6,6 +6,7 @@ class StartMenu {
     buttons = new ArrayList<Button>();
     buttons.add(new Button(width/2, height/2+100, 300, 80, color(100), color(255, 0, 0), "MULTIPLAYER", 3));
     buttons.add(new Button(width/2, height/2-100, 300, 80, color(100), color(255, 0, 0), "SINGLEPLAYER", 2));
+    buttons.add(new Button(width/2, height/2+200, 200, 80, color(100), color(255, 0, 0), "QUIT", 10));
   }
 
   void render() {

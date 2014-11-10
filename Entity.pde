@@ -1,12 +1,11 @@
-abstract class Entity
-{
+abstract class Entity {
+  
   PVector position, size, dispPos;
   float orientation;
   boolean state;
   Rectangle2D collideBox;
 
-  Entity(float x, float y)
-  {
+  Entity(float x, float y) {
     x = x;
     y = y;
   }

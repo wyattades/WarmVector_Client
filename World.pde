@@ -4,7 +4,7 @@ public class World {
   ArrayList<Entity> ents;
   ArrayList<Tile> tiles;
   ArrayList<Vector_Bullet> bullets;
-  ArrayList<Player> players;
+  ArrayList<DroppedWeapon> droppedWeps;
   int[][] tilesArray;
 
   float dispW, dispH, mapW, mapH;
@@ -36,13 +36,13 @@ public class World {
     "None", "M4 Rifle", "Barret 50Cal", "LMG", "Remington"
   };
 
-  P_Player thisPlayer;
+  ThisPlayer thisPlayer;
 
   World() {
     ents = new ArrayList<Entity>();
     tiles = new ArrayList<Tile>();
     bullets = new ArrayList<Vector_Bullet>();
-    players = new ArrayList<Player>();
+    droppedWeps = new ArrayList<DroppedWeapon>();
     gridW = image[0].width;
     gridH = image[0].height;
     mapW = gridW*tileSize;
@@ -52,67 +52,69 @@ public class World {
     bulletTime = mouseRightTime = 0;
     tilesArray = getLevelArray();
     addTiles();
-    thisPlayer = new P_Player(mapW/2, mapH/2, 48, 48, 1, 60);
-    players.add(thisPlayer);
-    for (int i = 0; i < tiles.size (); i++) {
-      Tile t = tiles.get(i);
-      ents.add(t);
-    }
-    ents.add(thisPlayer);
+    thisPlayer = new ThisPlayer(mapW/2, mapH/2, 48, 48, 1, 60);
   }
 
   public void update() {
+
     if (thisPlayer.state == false && thisPlayer.weaponType != 0) {
       addDroppedWeapon(thisPlayer);
     }
-    for (int i = 0; i < ents.size (); i++) {
-      Entity e = ents.get(i);
-      e.update();
-    }
+
     for (int i = 0; i < bullets.size (); i++) {
       Vector_Bullet b = bullets.get(i);
       b.update();
-    }    
-    for (int i = ents.size ()-1; i >= 0; i--) {
-      Entity e = ents.get(i);
-      if (e.state == false) {
-        ents.remove(e);
-      }
     }
-    for (int i = players.size ()-1; i >= 0; i--) {
-      Player p = players.get(i);
-      if (p.state == false) {
-        players.remove(p);
-      }
+    
+    thisPlayer.update();
+    
+    for (int i = 0; i < droppedWeps.size (); i++) {
+      DroppedWeapon dw = droppedWeps.get(i);
+      dw.update();
+      if (dw.checkPickUp(thisPlayer)) droppedWeps.remove(i);
     }
+    
+    for (int i = droppedWeps.size()-1; i >= 0; i--) {
+      DroppedWeapon dw = droppedWeps.get(i);
+      if (dw.checkPickUp(thisPlayer)) droppedWeps.remove(i);
+    }
+
     for (int i = bullets.size ()-1; i >= 0; i--) {
       Vector_Bullet b = bullets.get(i);
       if (b.state == false) {
         bullets.remove(b);
       }
     }
+    
   }
 
   public void render() {
     displayBackgroundImage();
+
     for (int i = 0; i < bullets.size (); i++) {
       Vector_Bullet b = bullets.get(i);
       b.render();
     }
+
     for (int i = 0; i < playerManager.playerList.size (); i++) {
       Player p = playerManager.playerList.get(i);
       p.render();
     }
-    //println("People: "+playerManager.playerList.size());
-    for (int i = 0; i < ents.size (); i++) {
-      Entity e = ents.get(i);
-      e.render();
+
+    for (int i = 0; i < droppedWeps.size (); i++) {
+      DroppedWeapon dw = droppedWeps.get(i);
+      dw.render();
     }
+    
+    thisPlayer.render();
+    
     displayWords();
+
+    //println("People: "+playerManager.playerList.size());
   }
 
   void addDroppedWeapon(Player p) {
-    ents.add(1, new DroppedWeapon(p.position.x, p.position.y, 40, 7, p.weaponType, p.round));
+    droppedWeps.add(new DroppedWeapon(p.position.x, p.position.y, 40, 7, p.weaponType, p.round));
   }
 
   private void displayWords() {

@@ -1,9 +1,9 @@
 class Input {
 
-  boolean keyUp, keyLeft, keyRight, keyDown, mouseLeft, mouseRight, K;
+  boolean keyUp, keyLeft, keyRight, keyDown, mouseLeft, mouseRight, K, esc;
 
   Input() {
-    keyUp = keyLeft = keyRight = keyDown = mouseLeft = mouseRight = K = false;
+    keyUp = keyLeft = keyRight = keyDown = mouseLeft = mouseRight = K = esc = false;
   }
 
   void pressMouse(int mouseButton) {
@@ -40,6 +40,9 @@ class Input {
     if (keyCode == 'K') {
       K = true;
     }
+    if (key == ESC) {
+      esc = true;
+    }
   }
 
   void releaseKey(int key, int keyCode) {
@@ -57,6 +60,9 @@ class Input {
     }
     if (keyCode == 'K') {
       K = false;
+    }
+    if (key == ESC) {
+      esc = false;
     }
   }
 }

@@ -1,10 +1,10 @@
-class P_Player extends Player {
+class ThisPlayer extends Player {
 
   PVector velocity, acceleration;
   float rotateDist = 80;
   int health;
 
-  P_Player(float i_x, float i_y, float w, float h, int weaponType, int round) {
+  ThisPlayer(float i_x, float i_y, float w, float h, int weaponType, int round) {
     super(i_x, i_y, w, h, weaponType, round);
     velocity = new PVector(0, 0);
     acceleration = new PVector(0, 0);

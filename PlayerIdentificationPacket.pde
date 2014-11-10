@@ -20,10 +20,10 @@ class PlayerIdentificationPacket implements ReceivePacket
       return;
     }
     
-    thisPlayer.id = id;
+    world.thisPlayer.id = id;
     
     //Send PlayerInitializePacket
-    networkManager.sendPacket(new PlayerInitializePacket(thisPlayer.username, thisPlayer.textureID));
+    networkManager.sendPacket(new PlayerInitializePacket(world.thisPlayer.username, world.thisPlayer.textureID));
   }
   
   String getID()

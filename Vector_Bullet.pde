@@ -28,12 +28,12 @@ class Vector_Bullet {
         points.add(new PVector(t.position.x, t.position.y)); //add all points of intersection with tile
       }
     }
-    for (int k = 0; k < world.players.size (); k++) {
-      Player p = world.players.get(k);
-      if (p.collideBox.intersectsLine(position.x, position.y, position.x+shot.x, position.y+shot.y)==true) {
-        points.add(new PVector(p.position.x, p.position.y));
-      }
-    }
+//    for (int k = 0; k < world.players.size (); k++) {
+//      Player p = world.players.get(k);
+//      if (p.collideBox.intersectsLine(position.x, position.y, position.x+shot.x, position.y+shot.y)==true) {
+//        points.add(new PVector(p.position.x, p.position.y));
+//      }
+//    }
     float previousDist = 1000000;
     for (int k = 0; k < points.size (); k++) {
       PVector p = points.get(k);

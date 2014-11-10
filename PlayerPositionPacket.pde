@@ -25,19 +25,19 @@ class PlayerPositionPacket implements ReceivePacket, SendPacket
     if(player == null)
       return;
     
-    player.x = x;
-    player.y = y;
+    player.position.x = x;
+    player.position.y = y;
     player.orientation = orientation;
   }
   
   String dump()
   {
     String dumpInfo = "";
-    dumpInfo += int(thisPlayer.x);
+    dumpInfo += int(world.thisPlayer.position.x);
     dumpInfo += "/";
-    dumpInfo += int(thisPlayer.y);
+    dumpInfo += int(world.thisPlayer.position.y);
     dumpInfo += "/";
-    dumpInfo += thisPlayer.orientation;
+    dumpInfo += world.thisPlayer.orientation;
     
     return dumpInfo;
   }

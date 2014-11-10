@@ -20,9 +20,9 @@ class PlayerInitializePacket implements SendPacket, ReceivePacket
   
   void run()
   {
-    if(id == thisPlayer.id)
+    if(id == world.thisPlayer.id)
     {
-      thisPlayer.valid = true;
+      world.thisPlayer.valid = true;
       return;
     }
     
@@ -30,7 +30,7 @@ class PlayerInitializePacket implements SendPacket, ReceivePacket
     
     if(player == null)
     {
-      player = new Player(0, 0);
+      player = new Player(0, 0, 48, 48, 1, 60);
       playerManager.addPlayer(player); 
     }
     
