@@ -71,8 +71,7 @@ void loadFiles() {
   }
 }
 
-void draw()
-{
+void draw() {
   background(255);
   if (stage == 1) {
     startmenu.render();
