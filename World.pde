@@ -68,6 +68,10 @@ public class World {
     
     thisPlayer.update();
     
+    for (int i = 0; i < playerManager.playerList.size (); i++) {
+      Player p = playerManager.playerList.get(i);
+      p.update();
+    }
     for (int i = 0; i < droppedWeps.size (); i++) {
       DroppedWeapon dw = droppedWeps.get(i);
       dw.update();
