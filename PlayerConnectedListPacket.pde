@@ -17,7 +17,9 @@ class PlayerConnectedListPacket implements ReceivePacket
     {
       String[] user = list[i].split("`");
       
-      if(playerManager.getPlayer(Integer.parseInt(user[0])) != null)
+      int id = Integer.parseInt(user[0]);
+      
+      if(id == world.thisPlayer.id || playerManager.getPlayer(id) != null)
         continue;
       
       Player p = new Player(0, 0, 48, 48, 0, 0);
@@ -25,6 +27,7 @@ class PlayerConnectedListPacket implements ReceivePacket
       p.id = Integer.parseInt(user[0]);
       p.username = user[1];
       p.textureID = Integer.parseInt(user[2]);
+      p.valid = true;
       
       playerManager.addPlayer(p);
     }

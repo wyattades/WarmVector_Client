@@ -19,6 +19,8 @@ class Player extends Entity
   void render() {
     pushMatrix();
     translate(dispPos.x, dispPos.y);
+    textSize(12);
+    text(p.username, p.position.x, p.position.y);
     rotate(orientation);   
     if (weaponType != 0) {
       fill(0);
