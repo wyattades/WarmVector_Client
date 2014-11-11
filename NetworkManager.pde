@@ -15,6 +15,12 @@ class NetworkManager
     packetList.put("3", new PlayerPositionPacket());
   }
   
+  void initializePlayer()
+  {
+    world.thisPlayer.tempID = random(0, 9999);
+    sendPacket(new PlayerTempIdentificationPacket(world.thisPlayer.tempID));
+  }
+  
   void sendPacket(SendPacket packet)
   { 
     client.write(encodePacket(packet));

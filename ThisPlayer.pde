@@ -3,6 +3,7 @@ class ThisPlayer extends Player {
   PVector velocity, acceleration;
   float rotateDist = 80;
   int health;
+  float tempID;
 
   ThisPlayer(float i_x, float i_y, float w, float h, int weaponType, int round) {
     super(i_x, i_y, w, h, weaponType, round);

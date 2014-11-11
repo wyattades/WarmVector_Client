@@ -86,7 +86,7 @@ void draw() {
     text("Connecting to Server...", width/2, height/2);
     if (testConnection) { //i have a boolean so i can print the above text before trying to connect
       connectionTimer = millis();
-      networkManager = new NetworkManager(new Client(this, "192.168.1.14", 5205));
+      networkManager = new NetworkManager(new Client(this, "192.168.1.8", 5205));
       packetSendFast = CountdownTimer.getNewCountdownTimer(this).configure(200, 1000000).start();// 15 packets every second
       if (millis()-connectionTimer > 4000) {
         stage = 1;

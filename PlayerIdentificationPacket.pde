@@ -1,22 +1,20 @@
 class PlayerIdentificationPacket implements ReceivePacket
 {
-  String ip;
+  float tempID;
   int id;
   
   PlayerIdentificationPacket() { }
   
   void initialize(String[] packetData)
   {
-    ip = packetData[0];
+    tempID = Float.parseFloat(packetData[0]);
     id = Integer.parseInt(packetData[1]);
   }
   
   void run()
   { 
-    if(ip == networkManager.client.ip())
+    if(tempID != world.thisPlayer.tempID)
     {
-      println("IP received: " + id);
-      println("IP of client: " + networkManager.client.ip());
       return;
     }
     
