@@ -109,13 +109,14 @@ public class World {
     for (int i = 0; i < playerManager.playerList.size (); i++) {
       Player p = playerManager.playerList.get(i);
       p.render();
+      text(p.username, p.position.x, p.position.y);
     }
     
     thisPlayer.render();
     
     displayWords();
 
-    println("People: "+playerManager.playerList.size());
+    //println("People: "+playerManager.playerList.size());
   }
 
   void addDroppedWeapon(Player p) {

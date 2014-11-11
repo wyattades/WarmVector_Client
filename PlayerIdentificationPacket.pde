@@ -24,6 +24,7 @@ class PlayerIdentificationPacket implements ReceivePacket
     
     //Send PlayerInitializePacket
     networkManager.sendPacket(new PlayerInitializePacket(world.thisPlayer.username, world.thisPlayer.textureID));
+    player.valid = true;
   }
   
   String getID()

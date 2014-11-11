@@ -46,6 +46,8 @@ class NetworkManager
   
   ReceivePacket decodePacket(String rawData)
   {
+    println("R: "+ rawData);
+    
     if(rawData.charAt(0) != '*' || rawData.charAt(rawData.length() - 1) != '*')//Packets should begin and end with an asteriks
     {
       return null;
@@ -59,13 +61,11 @@ class NetworkManager
     
     ReceivePacket packet = (ReceivePacket)networkManager.packetList.get(packetData.split("/")[0]);//Pull the packet based on the ID
     
-    if(packet == null || (packet.getID() != "0" && packet.isPrivate() && Integer.parseInt(data[1]) != thisPlayer.id))//If the packet isn't intended for this player, then stahp
+    if(packet == null || (packet.getID() != "0" && packet.isPrivate() && Integer.parseInt(data[1]) != world.thisPlayer.id))//If the packet isn't intended for this player, then stahp
       return null;
       
     int indexMod = packet.isPrivate() ? 2 : 1;//If its private, then we already checked the player ID so we can chop it off
     String[] initData = new String[data.length - indexMod];//data.length = 5;  5 - 1(packet ID) - 1(player ID) = 3
-    
-    println("R: "+packetData);
       
     for(int i = 0; i < initData.length; i++)// We also need to skip the first two pieces of information if its private
       initData[i] = data[i+indexMod];

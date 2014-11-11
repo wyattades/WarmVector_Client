@@ -22,7 +22,7 @@ class PlayerPositionPacket implements ReceivePacket, SendPacket
   void run()
   {
     Player player = playerManager.getPlayer(id);
-    if(player == null)
+    if(player == null || player.id == world.thisPlayer.id)
       return;
     
     player.position.x = x;

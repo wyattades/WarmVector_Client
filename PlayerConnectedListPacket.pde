@@ -17,6 +17,9 @@ class PlayerConnectedListPacket implements ReceivePacket
     {
       String[] user = list[i].split("`");
       
+      if(playerManager.getPlayer(Integer.parseInt(user[0])) != null)
+        continue;
+      
       Player p = new Player(0, 0, 48, 48, 0, 0);
       
       p.id = Integer.parseInt(user[0]);
@@ -27,7 +30,7 @@ class PlayerConnectedListPacket implements ReceivePacket
     }
   }
   
-  boolean isPrivate() { return true; }
+  boolean isPrivate() { return false; }
   
   String getID()
   {
