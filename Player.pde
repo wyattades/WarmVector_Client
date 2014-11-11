@@ -20,7 +20,6 @@ class Player extends Entity
     pushMatrix();
     translate(dispPos.x, dispPos.y);
     textSize(12);
-    text(p.username, p.position.x, p.position.y);
     rotate(orientation);   
     if (weaponType != 0) {
       fill(0);
@@ -33,7 +32,10 @@ class Player extends Entity
     strokeWeight(1);
     fill(#26DEB7);
     stroke(0);
-    rect(0, 0, size.x*.6, size.y);   
+    rect(0, 0, size.x*.6, size.y);
+    textSize(12);
+    textAlign(CENTER);
+    text(username, 0, -15);
     popMatrix();
   }
 }
