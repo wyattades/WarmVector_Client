@@ -6,7 +6,8 @@ class PlayerConnectedListPacket implements ReceivePacket
   
   void initialize(String[] packetData)
   {
-    users = packetData[0];
+    if(packetData.length > 0)
+      users = packetData[0];
   }
   
   void run()

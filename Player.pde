@@ -33,6 +33,7 @@ class Player extends Entity
     fill(#26DEB7);
     stroke(0);
     rect(0, 0, size.x*.6, size.y);
+    rotate(-orientation);
     textSize(12);
     textAlign(CENTER);
     text(username, 0, -15);
