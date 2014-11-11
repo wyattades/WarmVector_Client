@@ -9,6 +9,7 @@ class NetworkManager
     client = c;
     
     packetList = new HashMap<String, Packet>();
+    packetList.put("-1", new PlayerTempIdentificationPacket());
     packetList.put("0", new PlayerIdentificationPacket());
     packetList.put("1", new PlayerInitializePacket());
     packetList.put("2", new PlayerConnectedListPacket());
@@ -19,6 +20,8 @@ class NetworkManager
   {
     world.thisPlayer.tempID = random(0, 9999);
     sendPacket(new PlayerTempIdentificationPacket(world.thisPlayer.tempID));
+    
+    println("ID: " + world.thisPlayer.tempID);
   }
   
   void sendPacket(SendPacket packet)
@@ -46,13 +49,14 @@ class NetworkManager
     packetData += packet.dump();
     
     packetData += "*";
-    println("S: "+packetData);
+    //println("S: "+packetData);
     return packetData;
   }
   
   ReceivePacket decodePacket(String rawData)
   {
-    println("R: "+ rawData);
+    if(rawData.startsWith("*-1"))
+      println("R: "+ rawData);
     
     if(rawData.charAt(0) != '*' || rawData.charAt(rawData.length() - 1) != '*')//Packets should begin and end with an asteriks
     {

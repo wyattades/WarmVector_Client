@@ -92,6 +92,7 @@ void draw() {
         stage = 1;
         println("Connection Timed Out");
       } else {
+        networkManager.initializePlayer();
         stage = 4;
       }
     }
