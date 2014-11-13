@@ -55,10 +55,9 @@ class NetworkManager
   
   ReceivePacket decodePacket(String rawData)
   {
-    if(rawData.startsWith("*-1"))
-      println("R: "+ rawData);
+    println("R: "+ rawData);
     
-    if(rawData.charAt(0) != '*' || rawData.charAt(rawData.length() - 1) != '*')//Packets should begin and end with an asteriks
+    if(rawData.charAt(0) != '*' || rawData.charAt(rawData.length() - 1) != '*' || rawData.includes("**"))//Packets should begin and end with an asteriks
     {
       return null;
     }
