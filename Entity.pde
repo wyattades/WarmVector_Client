@@ -1,5 +1,5 @@
 abstract class Entity {
-  
+
   PVector position, size, dispPos;
   float orientation;
   boolean state;

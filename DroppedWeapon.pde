@@ -17,9 +17,9 @@ class DroppedWeapon extends Entity {
   public void update() {
     updateDispPos();
   }
-  
+
   public boolean checkPickUp(Player p) {
-    if (input.mouseRight && p.weaponType == 0 && collideBox.intersects(p.position.x,p.position.y,p.size.x,p.size.y)) {
+    if (input.mouseRight && p.weaponType == 0 && collideBox.intersects(p.position.x, p.position.y, p.size.x, p.size.y)) {
       if (millis()-world.mouseRightTime>500) {
         world.mouseRightTime = millis();
         p.weaponType = type;
@@ -29,6 +29,5 @@ class DroppedWeapon extends Entity {
     }
     return false;
   }
-
 }
 

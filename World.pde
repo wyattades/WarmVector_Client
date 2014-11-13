@@ -65,21 +65,21 @@ public class World {
       Vector_Bullet b = bullets.get(i);
       b.update();
     }
-    
+
     thisPlayer.update();
-    
+
     for (int i = 0; i < playerManager.playerList.size (); i++) {
       Player p = playerManager.playerList.get(i);
       p.update();
     }
-    
+
     for (int i = 0; i < droppedWeps.size (); i++) {
       DroppedWeapon dw = droppedWeps.get(i);
       dw.update();
       if (dw.checkPickUp(thisPlayer)) droppedWeps.remove(i);
     }
-    
-    for (int i = droppedWeps.size()-1; i >= 0; i--) {
+
+    for (int i = droppedWeps.size ()-1; i >= 0; i--) {
       DroppedWeapon dw = droppedWeps.get(i);
       if (dw.checkPickUp(thisPlayer)) droppedWeps.remove(i);
     }
@@ -90,7 +90,6 @@ public class World {
         bullets.remove(b);
       }
     }
-    
   }
 
   public void render() {
@@ -105,14 +104,14 @@ public class World {
       DroppedWeapon dw = droppedWeps.get(i);
       dw.render();
     }
-    
+
     for (int i = 0; i < playerManager.playerList.size (); i++) {
       Player p = playerManager.playerList.get(i);
       p.render();
     }
-    
+
     thisPlayer.render();
-    
+
     displayWords();
 
     //println("People: "+playerManager.playerList.size());

@@ -2,15 +2,16 @@ class PlayerPositionPacket implements ReceivePacket, SendPacket
 {
   float x, y, orientation;
   int id;
-  
-  PlayerPositionPacket() { }
+
+  PlayerPositionPacket() {
+  }
   PlayerPositionPacket(float x, float y, float orientation)
   {
     x = x;
     y = y;
-    orientation = orientation; 
+    orientation = orientation;
   }
-  
+
   void initialize(String[] packetData)
   {
     id = Integer.parseInt(packetData[0]);
@@ -18,18 +19,18 @@ class PlayerPositionPacket implements ReceivePacket, SendPacket
     y = Float.parseFloat(packetData[2]);
     orientation = Float.parseFloat(packetData[3]);
   }
-  
+
   void run()
   {
     Player player = playerManager.getPlayer(id);
-    if(player == null || player.id == world.thisPlayer.id)
+    if (player == null || player.id == world.thisPlayer.id)
       return;
-    
+
     player.position.x = x;
     player.position.y = y;
     player.orientation = orientation;
   }
-  
+
   String dump()
   {
     String dumpInfo = "";
@@ -38,19 +39,22 @@ class PlayerPositionPacket implements ReceivePacket, SendPacket
     dumpInfo += int(world.thisPlayer.position.y);
     dumpInfo += "/";
     dumpInfo += world.thisPlayer.orientation;
-    
+
     return dumpInfo;
   }
-  
-  boolean isPrivate() { return false; }
-  
+
+  boolean isPrivate() { 
+    return false;
+  }
+
   Packet clone()
   {
-    return new PlayerPositionPacket(); 
+    return new PlayerPositionPacket();
   }
-  
+
   String getID()
   {
-    return "3"; 
+    return "3";
   }
 }
+
