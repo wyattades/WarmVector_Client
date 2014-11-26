@@ -15,6 +15,19 @@ class GUI {
   void render() {
     displayMinimap();
     displayCursor();
+    displayWords();
+  }
+  
+  private void displayWords() {
+    textAlign(LEFT);
+    textSize(30);
+    fill(0);
+    String displayAmmo = nf(world.thisPlayer.round, 2, 0);
+    if (world.weaponInfo[world.thisPlayer.weaponType][3] == -1) displayAmmo = "Inf";
+    if (world.thisPlayer.weaponType == 0) displayAmmo = "NA";
+
+    text("Weapon: "+world.weaponName[world.thisPlayer.weaponType], 30, 60);
+    text("Ammo: "+displayAmmo, 30, 90);
   }
 
   private void displayMinimap() {
@@ -30,6 +43,11 @@ class GUI {
     point(world.thisPlayer.position.x-world.mapW/2, world.thisPlayer.position.y-world.mapH/2);
     for (int i = 0; i < playerManager.playerList.size (); i++) {
       Player p = playerManager.playerList.get(i);
+      stroke(0, 0, 255);
+      point(p.position.x-world.mapW/2, p.position.y-world.mapH/2);
+    }
+    for (int i = 0; i < world.enemies.size (); i++) {
+      Enemy p = world.enemies.get(i);
       stroke(0, 0, 255);
       point(p.position.x-world.mapW/2, p.position.y-world.mapH/2);
     }

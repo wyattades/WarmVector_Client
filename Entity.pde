@@ -5,11 +5,6 @@ abstract class Entity {
   boolean state;
   Rectangle2D collideBox;
 
-  Entity(float x, float y) {
-    x = x;
-    y = y;
-  }
-
   Entity(float i_x, float i_y, float w, float h) {
     position = new PVector(i_x, i_y);
     size = new PVector(w, h);

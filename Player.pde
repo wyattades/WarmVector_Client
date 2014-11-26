@@ -3,17 +3,23 @@ class Player extends Entity
   String username;
   int textureID;
   boolean valid;
-  int weaponType, round;
-  int id;
+  int weaponType, round,id,bulletTime;
+  PVector prevPos,vel;
 
   Player(float i_x, float i_y, float w, float h, int weaponType, int round) {
     super(i_x, i_y, w, h);
+    username = "Enemy";
+    bulletTime = millis();
     this.weaponType = weaponType;
     this.round = round;
+    prevPos = new PVector(position.x,position.y);
+    vel = new PVector(0,0);
   }
 
   void update() {
     updateDispPos();
+    vel = position.get();
+    vel.sub(prevPos);
   }
 
   void render() {
@@ -39,5 +45,10 @@ class Player extends Entity
     text(username, 0, -15);
     popMatrix();
   }
+  
+  void updatePrevPos() {
+    prevPos.set(position);
+  }
+  
 }
 

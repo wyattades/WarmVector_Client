@@ -18,7 +18,7 @@ class ThisPlayer extends Player {
     updateVelocity();
     updatePosition();
     updateLife();
-    if (input.mouseLeft) world.addBullets();
+    if (input.mouseLeft) world.addBullets(this);
     if (input.mouseRight) changeGun();
     dispPos.set(gui.PdispPos());
   }

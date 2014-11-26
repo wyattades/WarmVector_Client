@@ -25,7 +25,7 @@ class PlayerPositionPacket implements ReceivePacket, SendPacket
     Player player = playerManager.getPlayer(id);
     if (player == null || player.id == world.thisPlayer.id)
       return;
-
+    player.updatePrevPos();
     player.position.x = x;
     player.position.y = y;
     player.orientation = orientation;

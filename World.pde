@@ -2,13 +2,14 @@
 public class World {
 
   ArrayList<Entity> ents;
+  ArrayList<Enemy> enemies;
   ArrayList<Tile> tiles;
   ArrayList<Vector_Bullet> bullets;
   ArrayList<DroppedWeapon> droppedWeps;
   int[][] tilesArray;
 
   float dispW, dispH, mapW, mapH;
-  int gridW, gridH, bulletTime, mouseRightTime;
+  int gridW, gridH, mouseRightTime;
 
   static final int tileSize = 16;
   static final int TILE_EMPTY = 0;
@@ -37,22 +38,44 @@ public class World {
   };
 
   ThisPlayer thisPlayer;
+  Enemy e1;
 
   World() {
     ents = new ArrayList<Entity>();
     tiles = new ArrayList<Tile>();
     bullets = new ArrayList<Vector_Bullet>();
     droppedWeps = new ArrayList<DroppedWeapon>();
+    enemies = new ArrayList<Enemy>();
     gridW = image[0].width;
     gridH = image[0].height;
     mapW = gridW*tileSize;
     mapH = gridH*tileSize;
     dispW = width;
     dispH = height;
-    bulletTime = mouseRightTime = 0;
+    mouseRightTime = 0;
     tilesArray = getLevelArray();
     addTiles();
     thisPlayer = new ThisPlayer(mapW/2, mapH/2, 48, 48, 1, 60);
+    e1 = new Enemy(mapW/2+100, mapH/2, 48, 48, 1, 60);
+    enemies.add(e1);
+  }
+  
+  public void updateEnemies() {
+    for (int i = 0; i < enemies.size(); i++) {
+      Enemy e = enemies.get(i);
+      e.updateDispPos();
+      if (e.lineOfSight(thisPlayer,tiles)) {
+        if (e.lookingAt(thisPlayer,0.05)) addBullets(e);
+        else e.orientToPlayer(thisPlayer,0.1);
+      }
+    }
+  }
+  
+  public void renderEnemies() {
+    for (int i = 0; i < enemies.size(); i++) {
+      Enemy e = enemies.get(i);
+      e.render();
+    }
   }
 
   public void update() {
@@ -72,7 +95,9 @@ public class World {
       Player p = playerManager.playerList.get(i);
       p.update();
     }
-
+    
+    updatePlayerListPos();
+    
     for (int i = 0; i < droppedWeps.size (); i++) {
       DroppedWeapon dw = droppedWeps.get(i);
       dw.update();
@@ -112,34 +137,28 @@ public class World {
 
     thisPlayer.render();
 
-    displayWords();
-
-    //println("People: "+playerManager.playerList.size());
+  }
+  
+  private void updatePlayerListPos() {
+    for (int i = 0; i < playerManager.playerList.size(); i++) {
+      Player p = playerManager.playerList.get(i);
+      PVector vel = p.vel.get();
+      vel.div(12);
+      p.position.add(vel);
+    }
   }
 
   void addDroppedWeapon(Player p) {
     droppedWeps.add(new DroppedWeapon(p.position.x, p.position.y, 40, 7, p.weaponType, p.round));
   }
 
-  private void displayWords() {
-    textAlign(LEFT);
-    textSize(30);
-    fill(0);
-    String displayAmmo = nf(thisPlayer.round, 2, 0);
-    if (weaponInfo[thisPlayer.weaponType][3] == -1) displayAmmo = "Inf";
-    if (thisPlayer.weaponType == 0) displayAmmo = "NA";
-
-    text("Weapon: "+weaponName[thisPlayer.weaponType], 30, 60);
-    text("Ammo: "+displayAmmo, 30, 90);
-  }
-
-  private void addBullets() {
-    if (thisPlayer.weaponType != 0 && millis()-bulletTime>weaponInfo[thisPlayer.weaponType][0] && thisPlayer.round > 0) {
-      for (int i = 0; i < weaponInfo[thisPlayer.weaponType][2]; i++) {
-        bullets.add(new Vector_Bullet(thisPlayer.position.x, thisPlayer.position.y, thisPlayer.orientation, weaponInfo[thisPlayer.weaponType][1], weaponInfo[thisPlayer.weaponType][4]));
+  public void addBullets(Player p) {
+    if (p.weaponType != 0 && millis()-p.bulletTime>weaponInfo[p.weaponType][0] && p.round > 0) {
+      for (int i = 0; i < weaponInfo[p.weaponType][2]; i++) {
+        bullets.add(new Vector_Bullet(p.position.x, p.position.y, p.orientation, weaponInfo[p.weaponType][1], weaponInfo[p.weaponType][4]));
       }
-      bulletTime = millis();
-      thisPlayer.round--;
+      p.bulletTime = millis();
+      p.round--;
     }
   }
 
