@@ -1,3 +1,3 @@
 WarmVector_Client
 =================
-LOL i addded a readme
+Original WarmVector game, made in Processing
